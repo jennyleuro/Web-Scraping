@@ -1,3 +1,4 @@
+from subprocess import IDLE_PRIORITY_CLASS
 import requests
 from lxml import html
 
@@ -11,7 +12,10 @@ respuesta = requests.get(url, headers=encabezados)
 
 parser = html.fromstring(respuesta.text)
 
-ingles = parser.xpath("//a[@id = 'js-link-box-en']/strong/text()")
+ # idiomas = parser.xpath("//div[contains(@class, 'central-featured-lang')]//strong/text()")
 
-print(ingles)
+idiomas = parser.find_class('central-featured-lang')
+
+for idioma in idiomas:
+    print(idioma.text_content())
 
